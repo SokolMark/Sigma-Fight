@@ -20,37 +20,56 @@ public class Battle {
         return ThreadLocalRandom.current().nextInt(3);
     }
 
+    public void minusHpOfEnemy() {
+        int heroDamage = hero.attack(game.getMinDamage(), game.getMaxDamage());
+
+        game.setEnemyHP(game.getEnemyHP() - heroDamage);
+        System.out.println("✅ The hero deals damage to the enemy" + " - " + heroDamage);
+    }
+
+    public void minusHpOfHero() {
+        int enemyDamage = enemy.attack(5, 25);
+
+        game.setHeroHP(game.getHeroHP() - enemyDamage);
+        System.out.println("\uD83D\uDC94 The enemy deals damage to the hero " + "-" + enemyDamage);
+    }
+
+    public void getGold(int gold) {
+        game.setGold(game.getGold() + gold);
+    }
+
+    public void getFullEnemyHP() {
+        game.setEnemyHP(100);
+    }
+
     public void fight() throws InterruptedException {
 
         while (game.getHeroHP() > 0 && game.getEnemyHP() > 0) {
 
             Thread.sleep(1000); // kick waiting time
 
-            int heroDamage = hero.attack(game.getMinDamage(), game.getMaxDamage());
-            int enemyDamage = enemy.attack(5, 25);
-
             int randomNumber = getRandomNumber();
 
-            if (randomNumber == 1) {
-                game.setEnemyHP(game.getEnemyHP() - heroDamage);
-                System.out.println("Hero " + "-" + heroDamage + "(Enemy HP: " + game.getEnemyHP() + ")");
-            } else if (randomNumber == 0) {
-                game.setHeroHP(game.getHeroHP() - enemyDamage);
-                System.out.println("Enemy " + "-" + enemyDamage + "(Hero HP: " + game.getHeroHP() + ")");
-            } else if (randomNumber == 2) {
-                game.setEnemyHP(game.getEnemyHP() - heroDamage);
-                System.out.println("Hero " + "-" + heroDamage + "(Enemy HP: " + game.getEnemyHP() + ")");
+            switch (randomNumber) {
+                case 0 -> minusHpOfHero();
+                case 1 -> minusHpOfEnemy();
             }
+
         }
         if (game.getHeroHP() <= 0) {
-            System.out.println("You lose");
-            game.setEnemyHP(100);
+            System.out.println("☠\uFE0FYOU LOST☠\uFE0F");
+            getFullEnemyHP();
+            game.setHeroHP(0);
+
         } else if (game.getEnemyHP() <= 0) {
-            System.out.println("You win");
-            game.setGold(game.getGold() + 20);
+            System.out.println("⚔\uFE0FYOU WON⚔\uFE0F");
+            getGold(20);
             System.out.println("+20 gold");
-            game.setEnemyHP(100);
+            getFullEnemyHP();
+
         } else
             System.out.println("draw");
     }
+
+
 }

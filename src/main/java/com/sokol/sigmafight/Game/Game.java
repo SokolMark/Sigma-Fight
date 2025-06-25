@@ -39,14 +39,21 @@ public class Game {
     }
 
     public void setHeroHP(int heroHP) {
+        if(heroHP < 0){
+            throw new IllegalArgumentException("Hero HP must be a positive number");
+        }
         this.heroHP = heroHP;
     }
 
     public int getEnemyHP() {
+
         return enemyHP;
     }
 
     public void setEnemyHP(int enemyHP) {
+        if (enemyHP < 0){
+            throw new IllegalArgumentException("Enemy HP must be a positive number");
+        }
         this.enemyHP = enemyHP;
     }
 }
