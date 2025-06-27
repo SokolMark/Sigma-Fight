@@ -1,6 +1,6 @@
 package com.sokol.sigmafight.Game.Additionally;
 
-import com.sokol.sigmafight.Game.Game;
+import com.sokol.sigmafight.Game.MainHero;
 
 public enum Potion {
     POTION("Potion", 20, 10);
@@ -15,9 +15,9 @@ public enum Potion {
         this.hpBoost = hpBoost;
     }
 
-    public void applyPotion (Game game) {
-        game.setGold(game.getGold() - price);
-        game.setHeroHP(game.getHeroHP() + hpBoost);
+    public void applyPotion (MainHero mainHero) {
+        mainHero.setGold(mainHero.getGold() - price);
+        mainHero.setHeroHP(mainHero.getHeroHP() + hpBoost);
     }
 
 }

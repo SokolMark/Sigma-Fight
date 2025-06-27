@@ -1,75 +1,56 @@
 package com.sokol.sigmafight.Game;
 
+import com.sokol.sigmafight.Game.Additionally.Enemies.Arena;
+import com.sokol.sigmafight.Game.Additionally.Enemies.Boss;
+import com.sokol.sigmafight.Game.Additionally.Enemies.Robber;
 import com.sokol.sigmafight.Game.Additionally.Enemy;
 import com.sokol.sigmafight.Game.Additionally.Hero;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Scanner;
 
 public class Battle {
-    public Game game;
+    public MainHero mainHero;
     public Hero hero;
     public Enemy enemy;
+    Robber robber;
+    Boss boss;
+    Arena arena;
 
-    public Battle(Game game, Hero hero, Enemy enemy) {
-        this.game = game;
+    public Battle(MainHero mainHero, Hero hero, Enemy enemy, Robber robber, Boss boss, Arena arena) {
+        this.mainHero = mainHero;
         this.hero = hero;
         this.enemy = enemy;
-    }
-
-    public int getRandomNumber() {
-        return ThreadLocalRandom.current().nextInt(3);
-    }
-
-    public void minusHpOfEnemy() {
-        int heroDamage = hero.attack(game.getMinDamage(), game.getMaxDamage());
-
-        game.setEnemyHP(game.getEnemyHP() - heroDamage);
-        System.out.println("✅ The hero deals damage to the enemy" + " - " + heroDamage);
-    }
-
-    public void minusHpOfHero() {
-        int enemyDamage = enemy.attack(5, 25);
-
-        game.setHeroHP(game.getHeroHP() - enemyDamage);
-        System.out.println("\uD83D\uDC94 The enemy deals damage to the hero " + "-" + enemyDamage);
-    }
-
-    public void getGold(int gold) {
-        game.setGold(game.getGold() + gold);
-    }
-
-    public void getFullEnemyHP() {
-        game.setEnemyHP(100);
+        this.robber = robber;
+        this.boss = boss;
+        this.arena = arena;
     }
 
     public void fight() throws InterruptedException {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("--Battle fight--");
+            System.out.println("What enemies do you want to fight?");
+            System.out.println("1. - Robber");
+            System.out.println("2. - Boss");
+            System.out.println("3. - Arena");
+            System.out.println("4. - Exit");
 
-        while (game.getHeroHP() > 0 && game.getEnemyHP() > 0) {
+            int choice = sc.nextInt();
 
-            Thread.sleep(1000); // kick waiting time
+            switch (choice) {
+                case 1:
+                    robber.battle(mainHero);
+                    robber.getResult();
+                case 2:
+                    boss.battle(mainHero);
+                    boss.getResult();
+                case 3:
+                    arena.battle(mainHero);
+                case 4: {
+                    return;
+                }
 
-            int randomNumber = getRandomNumber();
-
-            switch (randomNumber) {
-                case 0 -> minusHpOfHero();
-                case 1 -> minusHpOfEnemy();
             }
-
         }
-        if (game.getHeroHP() <= 0) {
-            System.out.println("☠\uFE0FYOU LOST☠\uFE0F");
-            getFullEnemyHP();
-            game.setHeroHP(0);
-
-        } else if (game.getEnemyHP() <= 0) {
-            System.out.println("⚔\uFE0FYOU WON⚔\uFE0F");
-            getGold(20);
-            System.out.println("+20 gold");
-            getFullEnemyHP();
-
-        } else
-            System.out.println("draw");
     }
-
-
 }

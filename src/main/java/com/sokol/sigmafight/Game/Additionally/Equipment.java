@@ -1,6 +1,6 @@
 package com.sokol.sigmafight.Game.Additionally;
 
-import com.sokol.sigmafight.Game.Game;
+import com.sokol.sigmafight.Game.MainHero;
 
 public enum Equipment {
     KNIGHT("Knight Set", 40, 20);
@@ -15,9 +15,9 @@ public enum Equipment {
         this.hpBoost = hpBoost;
     }
 
-    public void applyEquipment (Game game) {
-        game.setGold(game.getGold() - price);
-        game.setHeroHP(game.getHeroHP() + hpBoost);
+    public void applyEquipment (MainHero mainHero) {
+        mainHero.setGold(mainHero.getGold() - price);
+        mainHero.setHeroHP(mainHero.getHeroHP() + hpBoost);
     }
 
 }

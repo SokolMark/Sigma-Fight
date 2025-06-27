@@ -1,6 +1,6 @@
 package com.sokol.sigmafight.Game.Additionally;
 
-import com.sokol.sigmafight.Game.Game;
+import com.sokol.sigmafight.Game.MainHero;
 
 public enum Weapon {
     SWORD("Better Sword", 40, 10, 20 ),
@@ -20,9 +20,9 @@ public enum Weapon {
         this.maxDamage = maxDamage;
     }
 
-    public void applyWeapon (Game game) {
-        game.setGold(game.getGold() - price);
-        game.setMinDamage(minDamage);
-        game.setMaxDamage(maxDamage);
+    public void applyWeapon (MainHero mainHero) {
+        mainHero.setGold(mainHero.getGold() - price);
+        mainHero.setMinDamage(minDamage);
+        mainHero.setMaxDamage(maxDamage);
     }
 }

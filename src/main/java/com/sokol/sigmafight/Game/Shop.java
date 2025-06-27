@@ -7,16 +7,16 @@ import com.sokol.sigmafight.Game.Additionally.Weapon;
 import java.util.Scanner;
 
 public class Shop {
-    public Game game;
+    public MainHero mainHero;
 
-    public Shop(Game game) {
-        this.game = game;
+    public Shop(MainHero mainHero) {
+        this.mainHero = mainHero;
     }
 
     public void showInf() {
-        System.out.println("Gold: " + game.getGold());
-        System.out.println("HP: " + game.getHeroHP());
-        System.out.println("Damage: " + game.getMinDamage() + " - " + game.getMaxDamage());
+        System.out.println("Gold: " + mainHero.getGold());
+        System.out.println("HP: " + mainHero.getHeroHP());
+        System.out.println("Damage: " + mainHero.getMinDamage() + " - " + mainHero.getMaxDamage());
     }
 
     public void getWeapon() {
@@ -51,10 +51,10 @@ public class Shop {
 
             Weapon selected = weapon[choice - 1];
 
-            if (game.getGold() < selected.price) {
+            if (mainHero.getGold() < selected.price) {
                 System.out.println("Not enough gold.");
             } else {
-                selected.applyWeapon(game);
+                selected.applyWeapon(mainHero);
                 System.out.println("You bought " + selected.name);
             }
 
@@ -93,10 +93,10 @@ public class Shop {
 
             Equipment selected = equipment[choice - 1];
 
-            if (game.getGold() < selected.price) {
+            if (mainHero.getGold() < selected.price) {
                 System.out.println("Not enough gold.");
             } else {
-                selected.applyEquipment(game);
+                selected.applyEquipment(mainHero);
                 System.out.println("You bought " + selected.name);
             }
         }
@@ -134,10 +134,10 @@ public class Shop {
 
             Potion selected = potion[choice - 1];
 
-            if (game.getGold() < selected.price) {
+            if (mainHero.getGold() < selected.price) {
                 System.out.println("Not enough gold.");
             } else {
-                selected.applyPotion(game);
+                selected.applyPotion(mainHero);
                 System.out.println("You bought " + selected.name);
             }
         }
