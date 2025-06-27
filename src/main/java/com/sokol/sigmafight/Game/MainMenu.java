@@ -13,6 +13,7 @@ public class MainMenu {
 
     public void chooseOption() throws InterruptedException {
         Scanner sc = new Scanner(System.in);
+
         while (true) {
             System.out.println("--Main-menu--");
             System.out.println("1. - Information about Hero");

@@ -1,64 +1,166 @@
 package com.sokol.sigmafight.Game;
 
+import com.sokol.sigmafight.Game.Additionally.Equipment;
+import com.sokol.sigmafight.Game.Additionally.Potion;
+import com.sokol.sigmafight.Game.Additionally.Weapon;
+
 import java.util.Scanner;
 
 public class Shop {
-    public Game game;
+    public MainHero mainHero;
 
-    public Shop(Game game) {
-        this.game = game;
+    public Shop(MainHero mainHero) {
+        this.mainHero = mainHero;
     }
 
     public void showInf() {
-        System.out.println("Gold: " + game.getGold());
-        System.out.println("HP: " + game.getHeroHP());
-        System.out.println("Damage: " + game.getMinDamage() + " - " + game.getMaxDamage());
+        System.out.println("Gold: " + mainHero.getGold());
+        System.out.println("HP: " + mainHero.getHeroHP());
+        System.out.println("Damage: " + mainHero.getMinDamage() + " - " + mainHero.getMaxDamage());
+    }
+
+    public void getWeapon() {
+        while (true) {
+
+            Scanner sc = new Scanner(System.in);
+
+            Weapon[] weapon = Weapon.values();
+
+            System.out.println("-----------------------------------------------------------------------");
+
+            for (int i = 0; i < weapon.length; i++) {
+                System.out.println((i + 1) + ". - " + weapon[i].name + " - " + weapon[i].price);
+                System.out.println("Damage: " + weapon[i].minDamage + " - " + weapon[i].maxDamage);
+                System.out.println("-----------------------------------------------------------------------");
+            }
+            System.out.println((weapon.length + 1) + ". - Exit");
+            System.out.println("-----------------------------------------------------------------------");
+
+            System.out.println("Choose: ");
+            int choice = sc.nextInt();
+
+            if (choice == weapon.length + 1) {
+                System.out.println("Exiting...");
+                return;
+            }
+
+            if (choice < 1 || choice > weapon.length) {
+                System.out.println("Invalid choice. Try again.");
+                continue;
+            }
+
+            Weapon selected = weapon[choice - 1];
+
+            if (mainHero.getGold() < selected.price) {
+                System.out.println("Not enough gold.");
+            } else {
+                selected.applyWeapon(mainHero);
+                System.out.println("You bought " + selected.name);
+            }
+
+        }
+    }
+
+    public void getEquipment() {
+        while (true) {
+
+            Scanner sc = new Scanner(System.in);
+
+            Equipment[] equipment = Equipment.values();
+
+            System.out.println("-----------------------------------------------------------------------");
+
+            for (int i = 0; i < equipment.length; i++) {
+                System.out.println((i + 1) + ". - " + equipment[i].name + " - " + equipment[i].price);
+                System.out.println("HP Boost: " + equipment[i].hpBoost);
+                System.out.println("-----------------------------------------------------------------------");
+            }
+
+            System.out.println((equipment.length + 1) + ". - Exit");
+            System.out.println("-----------------------------------------------------------------------");
+
+            int choice = sc.nextInt();
+
+            if (choice == equipment.length + 1) {
+                System.out.println("Exiting...");
+                return;
+            }
+
+            if (choice < 1 || choice > equipment.length) {
+                System.out.println("Invalid choice. Try again.");
+                continue;
+            }
+
+            Equipment selected = equipment[choice - 1];
+
+            if (mainHero.getGold() < selected.price) {
+                System.out.println("Not enough gold.");
+            } else {
+                selected.applyEquipment(mainHero);
+                System.out.println("You bought " + selected.name);
+            }
+        }
+    }
+
+    public void getPotion() {
+        while (true) {
+
+            Scanner sc = new Scanner(System.in);
+
+            Potion[] potion = Potion.values();
+
+            System.out.println("-----------------------------------------------------------------------");
+
+            for (int i = 0; i < potion.length; i++) {
+                System.out.println((i + 1) + ". - " + potion[i].name + " - " + potion[i].price);
+                System.out.println("HP Boost: " + potion[i].hpBoost);
+                System.out.println("-----------------------------------------------------------------------");
+            }
+
+            System.out.println((potion.length + 1) + ". - Exit");
+            System.out.println("-----------------------------------------------------------------------");
+
+            int choice = sc.nextInt();
+
+            if (choice == potion.length + 1) {
+                System.out.println("Exiting...");
+                return;
+            }
+
+            if (choice < 1 || choice > potion.length) {
+                System.out.println("Invalid choice. Try again.");
+                continue;
+            }
+
+            Potion selected = potion[choice - 1];
+
+            if (mainHero.getGold() < selected.price) {
+                System.out.println("Not enough gold.");
+            } else {
+                selected.applyPotion(mainHero);
+                System.out.println("You bought " + selected.name);
+            }
+        }
     }
 
     public void shop() {
-        Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("--in-stock--");
-            System.out.println("1. - Better sword (10 - 20 damage) - 40 gold");
-            System.out.println("2. - Arm (+20hp) - 40 gold");
-            System.out.println("3. - Potion (+10hp) - 20 gold");
-            System.out.println("4. - Better Potion (+15hp) - 25 gold");
-            System.out.println("5. - Exit");
-            int choice = sc.nextInt();
+            Scanner sc = new Scanner(System.in);
+            System.out.println("--What products do you want to buy?--");
+            System.out.println("1. - Weapon");
+            System.out.println("2. - Equipment");
+            System.out.println("3. - Potions");
+            System.out.println("4. - Exit");
 
-            switch (choice) {
-                case 1:
-                    game.setMinDamage(game.getMinDamage() + 5);
-                    game.setMaxDamage(game.getMaxDamage() + 10);
-                    game.setGold(game.getGold() - 40);
-                    System.out.println("The better sword has been purchased");
-                    break;
+            int products = sc.nextInt();
 
-                case 2:
-                    game.setHeroHP(game.getHeroHP() + 20);
-                    game.setGold(game.getGold() - 40);
-                    System.out.println("The Arm has been purchased");
-                    break;
-
-                case 3:
-                    game.setHeroHP(game.getHeroHP() + 10);
-                    game.setGold(game.getGold() - 20);
-                    System.out.println("The Potion has been purchased");
-                    break;
-
-                case 4:
-                    game.setHeroHP(game.getHeroHP() + 15);
-                    game.setGold(game.getGold() - 25);
-                    System.out.println("The Better Potion has been purchased");
-                    break;
-
-                case 5:
-                    System.out.println("Exiting...");
+            switch (products) {
+                case 1 -> getWeapon();
+                case 2 -> getEquipment();
+                case 3 -> getPotion();
+                case 4 -> {
                     return;
-
-                default:
-                    System.out.println("Invalid option. Please try again.");
-                    break;
+                }
             }
         }
     }
