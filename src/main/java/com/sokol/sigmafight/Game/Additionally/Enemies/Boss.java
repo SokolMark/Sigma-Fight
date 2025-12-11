@@ -55,10 +55,11 @@ public class Boss implements Enemies {
             getGold(100);
             System.out.println("+20 gold");
             bossHP = 200;
-        } else
+        } else if (mainHero.getHeroHP() <= 0 && bossHP <= 0) {
             System.out.println("\uD83D\uDEE1DRAW\uD83D\uDEE1");
-        getGold(50);
-        bossHP = 200;
+            getGold(50);
+            bossHP = 200;
+        }
     }
 
     @Override

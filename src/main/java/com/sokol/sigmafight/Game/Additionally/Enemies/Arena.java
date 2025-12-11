@@ -33,6 +33,7 @@ public class Arena implements Enemies {
     public void minusHpOfEnemy() {
         int heroDamage = hero.attack(mainHero.getMinDamage(), mainHero.getMaxDamage());
 
+        enemyHP -= heroDamage;
         mainHero.setHeroHP(mainHero.getHeroHP() - heroDamage);
         System.out.println("✅ The hero deals damage - " + heroDamage);
     }
@@ -41,7 +42,8 @@ public class Arena implements Enemies {
     public void minusHpOfHero() {
         int enemyDamage = enemy.attack(minDamage, maxDamage);
 
-        enemyHP -= enemyDamage;
+        mainHero.setHeroHP(mainHero.getHeroHP() - enemyDamage);
+
         System.out.println("\uD83D\uDC94" + "the hero took damage - " + enemyDamage);
     }
 
@@ -52,6 +54,7 @@ public class Arena implements Enemies {
 
     @Override
     public void getResult() {
+        int heroHP = mainHero.getHeroHP();
         if (mainHero.getHeroHP() <= 0) {
             System.out.println("☠\uFE0FYOU LOST☠\uFE0F");
             mainHero.setHeroHP(0);
@@ -61,10 +64,13 @@ public class Arena implements Enemies {
             System.out.println("⚔\uFE0FYOU WON⚔\uFE0F");
             getGold(10);
             System.out.println("+10 gold");
+            mainHero.setHeroHP(100);
             enemyHP = 50;
-        } else
+        } else {
             System.out.println("\uD83D\uDEE1DRAW\uD83D\uDEE1");
-        enemyHP = 50;
+            enemyHP = 50;
+            mainHero.setHeroHP(heroHP);
+        }
     }
 
     @Override
@@ -92,7 +98,7 @@ public class Arena implements Enemies {
                 System.out.println("you won " + i + " rounds");
                 int goldAfterRound = mainHero.getGold();
                 int finishGold = goldAfterRound - GOLD; //find out earnings
-                System.out.println("+ " + finishGold + " gold");
+                System.out.println("+" + finishGold + " gold");
                 break;
             } else {
                 getResult();

@@ -15,9 +15,8 @@ public enum Equipment {
         this.hpBoost = hpBoost;
     }
 
-    public void applyEquipment (MainHero mainHero) {
+    public void applyEquipment(MainHero mainHero) {
         mainHero.setGold(mainHero.getGold() - price);
-        mainHero.setHeroHP(mainHero.getHeroHP() + hpBoost);
+        mainHero.getEquipmentInventory().add(this); // the equipment is adding to the inventory after purchase
     }
-
 }

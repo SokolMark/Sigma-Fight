@@ -1,14 +1,11 @@
 package com.sokol.sigmafight;
 
+import com.sokol.sigmafight.Game.*;
 import com.sokol.sigmafight.Game.Additionally.Enemies.Arena;
 import com.sokol.sigmafight.Game.Additionally.Enemies.Boss;
 import com.sokol.sigmafight.Game.Additionally.Enemies.Robber;
 import com.sokol.sigmafight.Game.Additionally.Enemy;
 import com.sokol.sigmafight.Game.Additionally.Hero;
-import com.sokol.sigmafight.Game.Battle;
-import com.sokol.sigmafight.Game.MainHero;
-import com.sokol.sigmafight.Game.MainMenu;
-import com.sokol.sigmafight.Game.Shop;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -21,9 +18,10 @@ public class Main {
 
         Shop shop = new Shop(mainHero);
         Battle battle = new Battle(mainHero, hero, enemy, robber, boss, arena);
+        Inventory inventory = new Inventory();
 
-        MainMenu mainMenu = new MainMenu(shop, battle);
-        mainMenu.chooseOption();
+        MainMenu mainMenu = new MainMenu(shop, battle,inventory);
+        mainMenu.chooseOption(mainHero);
     }
 
 }

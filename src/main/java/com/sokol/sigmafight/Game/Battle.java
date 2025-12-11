@@ -33,23 +33,31 @@ public class Battle {
             System.out.println("1. - Robber");
             System.out.println("2. - Boss");
             System.out.println("3. - Arena");
-            System.out.println("4. - Exit");
+            System.out.println("4. - Exit to main menu");
 
             int choice = sc.nextInt();
 
-            switch (choice) {
-                case 1:
-                    robber.battle(mainHero);
-                    robber.getResult();
-                case 2:
-                    boss.battle(mainHero);
-                    boss.getResult();
-                case 3:
-                    arena.battle(mainHero);
-                case 4: {
-                    return;
+            if (mainHero.getHeroHP() >= 25) {
+                switch (choice) {
+                    case 1:
+                        robber.battle(mainHero);
+                        robber.getResult();
+                        break;
+                    case 2:
+                        boss.battle(mainHero);
+                        boss.getResult();
+                        break;
+                    case 3:
+                        arena.battle(mainHero);
+                        break;
+                    case 4: {
+                        return;
+                    }
                 }
-
+            }
+            else if (mainHero.getHeroHP() < 24 ) {
+                System.out.println("You have " + mainHero.getHeroHP() + " HP. You need 25 HP to fight.");
+                break;
             }
         }
     }

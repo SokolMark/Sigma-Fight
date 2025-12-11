@@ -5,13 +5,15 @@ import java.util.Scanner;
 public class MainMenu {
     public Shop shop;
     public Battle battle;
+    public Inventory inventory;
 
-    public MainMenu(Shop shop, Battle battle) {
+    public MainMenu(Shop shop, Battle battle, Inventory inventory) {
         this.shop = shop;
         this.battle = battle;
+        this.inventory = inventory;
     }
 
-    public void chooseOption() throws InterruptedException {
+    public void chooseOption(MainHero mainHero) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -19,7 +21,8 @@ public class MainMenu {
             System.out.println("1. - Information about Hero");
             System.out.println("2. - Shop");
             System.out.println("3. - Fight");
-            System.out.println("4. - Exit");
+            System.out.println("4. - Inventory");
+            System.out.println("5. - Exit");
             System.out.println("Enter your choice: ");
             int choice = sc.nextInt();
 
@@ -27,7 +30,8 @@ public class MainMenu {
                 case 1 -> shop.showInf();
                 case 2 -> shop.shop();
                 case 3 -> battle.fight();
-                case 4 -> {
+                case 4 -> inventory.showInventory(mainHero);
+                case 5 -> {
                     return;
                 }
             }

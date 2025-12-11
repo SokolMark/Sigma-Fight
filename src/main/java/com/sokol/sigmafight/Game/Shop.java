@@ -113,7 +113,9 @@ public class Shop {
 
             for (int i = 0; i < potion.length; i++) {
                 System.out.println((i + 1) + ". - " + potion[i].name + " - " + potion[i].price);
-                System.out.println("HP Boost: " + potion[i].hpBoost);
+                System.out.println("HP Boost: " + " +" + potion[i].hpBoost);
+                System.out.println("min Damage Boost: " + " +" + potion[i].minDamageBoost);
+                System.out.println("max Damage Boost: " + " +" +  potion[i].maxDamageBoost);
                 System.out.println("-----------------------------------------------------------------------");
             }
 
